@@ -42,7 +42,7 @@ RUN unzip wordpress.zip
 RUN rm -r "$PATH_HTML/"* && mv -T wordpress "$PATH_WP_INSTALL"
 
 # CLEANUP
-run rm -rf /tmp/wordpress.zip
+run rm -rf /wordpress.zip
 RUN apt-get purge -y unzip
 
 # COPY FILES / CONFIG / TEMPLATES
