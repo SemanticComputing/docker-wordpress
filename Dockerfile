@@ -36,7 +36,7 @@ RUN apt-get update
 RUN apt-get install -y php-mysql unzip gettext-base vsftpd
 
 # SETUP WORDPRESS
-WORKDIR /tmp
+WORKDIR /
 RUN wget -O wordpress.zip https://wordpress.org/latest.zip
 RUN unzip wordpress.zip 
 RUN rm -r "$PATH_HTML/"* && mv -T wordpress "$PATH_WP_INSTALL"
