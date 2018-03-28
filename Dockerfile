@@ -14,7 +14,6 @@ ENV WP_DB_HOST "localhost"
 ENV WP_DB_CHARSET "utf8"
 ENV WP_SITEURL "http://localhost:8080"
 ENV WP_HOME "$WP_SITEURL"
-ENV QUICKSTART ""
 
 # Only variables in VARIABLES_WP_CONF will be substituted in the SRC_WP_CONF file.
 ENV VARIABLES_WP_CONF \
