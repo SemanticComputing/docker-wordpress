@@ -5,7 +5,7 @@ set -x
 
 # Setup wordpress if not done yet
 if [ ! -e "$PATH_HTML/wp-config.php" ]; then
-    cp -RT $PATH_WP_INSTALL $PATH_HTML;
+    cp -RT "$PATH_WP_INSTALL" "$PATH_HTML";
 fi
 
 exec "$RUN_APACHE_VARNISH" $@
