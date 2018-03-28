@@ -25,7 +25,7 @@ if [ $? != 0 ]; then
 fi 
 
 mkdir vol-mysql-data
-chmod -R ug-rwX vol-mysql-data
+chmod -R ug=rwX vol-mysql-data
 
 #Run the container
 set -x # print the next command
