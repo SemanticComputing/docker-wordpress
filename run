@@ -13,4 +13,4 @@ WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/sal
 # Only variables in VARIABLES_WP_CONF will be substituted in the SRC_WP_CONF file.
 envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"
 
-exec "$RUN_APACHE_VARNISH" $@
+$EXEC_APACHE_VARNISH $@
