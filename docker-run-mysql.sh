@@ -3,7 +3,7 @@
 # Use this only for running individual containers locally
 # On cpouta use docker-compose
 
-IMAGE="registry.access.redhat.com/openshift3/mysql-57-rhel7:latest"
+IMAGE="registry.access.redhat.com/rhscl/mysql-57-rhel7:latest"
 CONTAINER_NAME="mysql"
 IP="172.30.23.12"
 CONTAINER_PORT="3306"
