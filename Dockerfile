@@ -1,4 +1,4 @@
-FROM apache-varnish:latest
+FROM secoresearch/apache-varnish:latest
 
 # DEFINE BUILDTIME ENV
 ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
