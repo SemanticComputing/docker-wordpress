@@ -53,6 +53,8 @@ COPY "wp-config.php.source" "$SRC_WP_CONF"
 RUN touch "$FILE_WP_CONF" && chmod g=u "$FILE_WP_CONF"
 RUN touch "$FILE_PHP_INI" && chmod g=u "$FILE_PHP_INI"
 
+RUN chmod g=u /etc/passwd
+
 # Can be run as non-root
 USER 10001
 
