@@ -1,21 +1,24 @@
 #!/bin/sh
 
-# Print commands
-set -x
+echoerr() { echo "$@" 1>&2; }
+fail() { echoerr $1; exit 1; }
+ERR_WORDPRESS="Error configuring wordpress"
+ERR_EXEC="Error executing wordpress"
 
-# Setup wordpress if not done yet
-if [ ! -e "$PATH_HTML/wp-config.php" ]; then
-    cp -RT "$PATH_WP_INSTALL" "$PATH_HTML";
-fi
 
-# Generate salts if not provided by env
-WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/salt/)}
-# Only variables in VARIABLES_WP_CONF will be substituted in the SRC_WP_CONF file.
-envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"
-
-# Enable PHP mail
+# Copy wordpres installation to PATH_HTML if it does not exist
+[ -e "$FILE_WP_CONFIG" ] || cp -RT "$PATH_WP_INSTALL" "$PATH_HTML"                          || fail "$ERR_WORDPRESS"
+# Generate WP_SALTS
+WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/salt/)}        || fail "$ERR_WORDPRESS"
+# Envsubst config params to FILE_WP_CONFIG
+envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"                            || fail "$ERR_WORDPRESS"
+# Configure sendmail_path in php.ini to allow wordpress sending emails
 TEMP_PHP_INI="/tmp/php.ini"
-cat "$FILE_PHP_INI" | sed "s/;sendmail_path.*/sendmail_path = $BIN_SENDMAIL" > "$PATH_TEMP/$FILE_PHP_INI"
-mv -T "$TMP_PHP_INI" "$FILE_PHP_INI"
+cat "$FILE_PHP_INI" | \
+    sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" \
+    > "$TEMP_PHP_INI"                                                                       || fail "$ERR_WORDPRESS"
+cat "$TEMP_PHP_INI" > "$FILE_PHP_INI"                                                       || fail "$ERR_WORDPRESS"
 
-$EXEC_APACHE_VARNISH $@
+
+# Start the app
+$EXEC_APACHE_VARNISH $@                                                                     || fail "$ERR_EXEC"

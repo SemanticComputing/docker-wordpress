@@ -5,6 +5,7 @@ ENV FILE_PHP_INI "/etc/php/7.0/apache2/php.ini"
 ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
 ENV PATH_WP_INSTALL "/wordpress"
 ENV SRC_WP_CONF "/wp-config.php.source"
+ENV BIN_SENDMAIL "/usr/sbin/sendmail"
 
 # DEFINE RUNTIME ENV
 ENV WP_SALTS ""
@@ -28,11 +29,11 @@ ENV VARIABLES_WP_CONF \
         \$WP_SITEURL"
 
 # INSTALL PACKAGES
-RUN apt-get update
 # php-mysql - wordpress
 # unzip - unpack wp installation
 # gettext-base - envsubst for generating config from .source
 # vsftpd - wordpress connects via ftp to install themes etc
+RUN apt-get update
 RUN apt-get install -y php-mysql unzip gettext-base vsftpd
 
 # SETUP WORDPRESS
