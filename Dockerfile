@@ -1,6 +1,7 @@
 FROM secoresearch/apache-varnish:latest
 
 # DEFINE BUILDTIME ENV
+ENV FILE_PHP_INI "/etc/php/7.0/apache2/php.ini"
 ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
 ENV PATH_WP_INSTALL "/wordpress"
 ENV SRC_WP_CONF "/wp-config.php.source"
@@ -49,6 +50,7 @@ COPY "wp-config.php.source" "$SRC_WP_CONF"
 
 # PERMISSIONS
 RUN touch "$FILE_WP_CONF" && chmod g=u "$FILE_WP_CONF"
+RUN touch "$FILE_PHP_INI" && chmod g=u "$FILE_PHP_INI"
 
 # Can be run as non-root
 USER 10001

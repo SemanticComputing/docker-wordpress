@@ -13,4 +13,9 @@ WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/sal
 # Only variables in VARIABLES_WP_CONF will be substituted in the SRC_WP_CONF file.
 envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"
 
+# Enable PHP mail
+TEMP_PHP_INI="/tmp/php.ini"
+cat "$FILE_PHP_INI" | sed "s/;sendmail_path.*/sendmail_path = $BIN_SENDMAIL" > "$PATH_TEMP/$FILE_PHP_INI"
+mv -T "$TMP_PHP_INI" "$FILE_PHP_INI"
+
 $EXEC_APACHE_VARNISH $@
