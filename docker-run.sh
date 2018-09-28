@@ -13,7 +13,9 @@ NETWORK_CIDR="172.30.20.0/22"
 CONTAINER_USER="$UID"
 MOUNT_TARGET_WP="/var/www/html/"
 MYSQL_IP="172.30.23.12"
+MYSQL_USER="wp"
 MYSQL_PASSWORD="dummypassword"
+MYSQL_DATABASE="wp"
 WP_HOME='http://localhost:8080'
 WP_SITEURL='http://localhost:8080'
 
@@ -42,6 +44,8 @@ docker run -it --rm \
 	--expose $CONTAINER_PORT \
     --mount "type=bind,source=$(pwd)/vol-wp/,target=$MOUNT_TARGET_WP" \
     -e "WP_DB_HOST=172.30.23.12" \
+    -e "WP_DB_NAME=$MYSQL_DATABASE" \
+    -e "WP_DB_USER=$MYSQL_USER" \
     -e "WP_DB_PASSWORD=$MYSQL_PASSWORD" \
     -e "WP_HOME=$WP_HOME" \
     -e "WP_SITEURL=$WP_SITEURL" \

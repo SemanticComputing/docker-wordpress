@@ -12,6 +12,8 @@ NETWORK="seco"
 NETWORK_CIDR="172.30.20.0/22"
 CONTAINER_USER="$UID"
 MYSQL_PASSWORD="dummypassword"
+MYSQL_USER="wp"
+MYSQL_DATABASE="wp"
 MOUNT_TARGET_MYSQL="/var/lib/mysql/data"
 
 # DOCKER
@@ -37,6 +39,8 @@ docker run -it --rm \
 	--publish $PORT:$CONTAINER_PORT \
 	--expose $CONTAINER_PORT \
     --mount "type=bind,source=$(pwd)/vol-mysql-data,target=$MOUNT_TARGET_MYSQL" \
-    -e "MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD" \
+    -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" \
+    -e "MYSQL_USER=$MYSQL_USER" \
+    -e "MYSQL_DATABASE=$MYSQL_DATABASE" \
 	$IMAGE
 { set +x; } 2> /dev/null
