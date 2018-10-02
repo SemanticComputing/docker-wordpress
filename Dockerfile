@@ -6,6 +6,7 @@ ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
 ENV PATH_WP_INSTALL "/wordpress"
 ENV SRC_WP_CONF "/wp-config.php.source"
 ENV BIN_SENDMAIL "/usr/sbin/sendmail"
+ENV PHP_MAX_EXECUTION_TIME "90"
 
 # DEFINE RUNTIME ENV
 ENV WP_SALTS ""

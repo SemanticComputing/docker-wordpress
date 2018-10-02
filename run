@@ -18,9 +18,11 @@ WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/sal
 # Envsubst config params to FILE_WP_CONFIG
 envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"                            || fail "$ERR_WORDPRESS"
 # Configure sendmail_path in php.ini to allow wordpress sending emails
+# Configure max_execution_time in php.ini to allow installation of heavier plugins
 TEMP_PHP_INI="/tmp/php.ini"
 cat "$FILE_PHP_INI" | \
-    sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" \
+    sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" | \
+    sed "s|max_execution_time.*|max_execution_time = $PHP_MAX_EXECUTION_TIME|g" \
     > "$TEMP_PHP_INI"                                                                       || fail "$ERR_WORDPRESS"
 cat "$TEMP_PHP_INI" > "$FILE_PHP_INI"                                                       || fail "$ERR_WORDPRESS"
 
