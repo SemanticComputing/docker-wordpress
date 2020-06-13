@@ -11,8 +11,8 @@ if ! whoami &> /dev/null; then
   fi
 fi
 
-# Copy wordpres installation to PATH_HTML if it does not exist
-[ -e "$FILE_WP_CONFIG" ] || cp -RT "$PATH_WP_INSTALL" "$PATH_HTML"                          || fail "$ERR_WORDPRESS"
+# Copy wordpress installation to PATH_HTML if it does not exist
+[ -e "$FILE_WP_CONF" ] || cp -RT "$PATH_WP_INSTALL" "$PATH_HTML"                          || fail "$ERR_WORDPRESS"
 # Generate WP_SALTS
 WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/salt/)}        || fail "$ERR_WORDPRESS"
 # Envsubst config params to FILE_WP_CONFIG
