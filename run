@@ -22,7 +22,8 @@ envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"                
 TEMP_PHP_INI="/tmp/php.ini"
 cat "$FILE_PHP_INI" | \
     sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" | \
-    sed "s|max_execution_time.*|max_execution_time = $PHP_MAX_EXECUTION_TIME|g" \
+    sed "s|max_execution_time.*|max_execution_time = $PHP_MAX_EXECUTION_TIME|g" | \
+    sed "s|upload_max_filesize.*|upload_max_filesize = $PHP_UPLOAD_MAX_FILESIZE|g" \
     > "$TEMP_PHP_INI"                                                                       || fail "$ERR_WORDPRESS"
 cat "$TEMP_PHP_INI" > "$FILE_PHP_INI"                                                       || fail "$ERR_WORDPRESS"
 
