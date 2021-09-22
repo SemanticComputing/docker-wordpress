@@ -18,7 +18,7 @@ WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/sal
 # Envsubst config params to FILE_WP_CONF
 envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"                            || fail "$ERR_WORDPRESS"
 if [ "$SSL_REVERSE_PROXY" ]; then
-  sed -i "2i if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) $_SERVER['HTTPS']='on';" "$FILE_WP_CONF"
+  sed -i "2i if (strpos(\$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) \$_SERVER['HTTPS']='on';" "$FILE_WP_CONF"
 fi
 
 # Configure sendmail_path in php.ini to allow wordpress sending emails
