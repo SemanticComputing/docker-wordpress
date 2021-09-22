@@ -5,9 +5,6 @@ ENV FILE_PHP_INI "/etc/php/7.0/apache2/php.ini"
 ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
 ENV PATH_WP_INSTALL "/wordpress"
 ENV SRC_WP_CONF "/wp-config.php.source"
-ENV BIN_SENDMAIL "/usr/sbin/sendmail"
-ENV PHP_MAX_EXECUTION_TIME "90"
-ENV PHP_UPLOAD_MAX_FILESIZE "2M"
 
 # DEFINE RUNTIME ENV
 ENV WP_SALTS ""
@@ -18,6 +15,11 @@ ENV WP_DB_HOST "localhost"
 ENV WP_DB_CHARSET "utf8"
 ENV WP_SITEURL "http://localhost:8080"
 ENV WP_HOME "$WP_SITEURL"
+
+ENV BIN_SENDMAIL "/usr/sbin/sendmail"
+ENV PHP_MAX_EXECUTION_TIME "90"
+ENV PHP_UPLOAD_MAX_FILESIZE "2M"
+
 # Enable WP permalinks (.htaccess)
 ENV APACHE_ALLOW_OVERRIDE "All"
 
@@ -47,7 +49,7 @@ RUN unzip wordpress.zip
 RUN mv -T wordpress "$PATH_WP_INSTALL"
 
 # CLEANUP
-run rm -rf /tmp/*
+RUN rm -rf /tmp/*
 RUN apt-get purge -y unzip
 
 # COPY FILES / CONFIG / TEMPLATES
@@ -65,5 +67,3 @@ USER 10001
 ENV RUN_WORDPRESS "/run-wordpress"
 COPY "run" "/run-wordpress"
 ENTRYPOINT [ "/run-wordpress" ]
-
-
