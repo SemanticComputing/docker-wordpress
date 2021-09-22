@@ -15,10 +15,11 @@ fi
 [ -e "$FILE_WP_CONF" ] || cp -RT "$PATH_WP_INSTALL" "$PATH_HTML"                          || fail "$ERR_WORDPRESS"
 # Generate WP_SALTS
 WP_SALTS=${WP_SALTS:-$(wget -q -O - https://api.wordpress.org/secret-key/1.1/salt/)}        || fail "$ERR_WORDPRESS"
-# Envsubst config params to FILE_WP_CONFIG
+# Envsubst config params to FILE_WP_CONF
 envsubst "$VARIABLES_WP_CONF" < "$SRC_WP_CONF" > "$FILE_WP_CONF"                            || fail "$ERR_WORDPRESS"
 # Configure sendmail_path in php.ini to allow wordpress sending emails
 # Configure max_execution_time in php.ini to allow installation of heavier plugins
+# Configure upload_max_filesize in php.ini to allow upload of larger media files
 TEMP_PHP_INI="/tmp/php.ini"
 cat "$FILE_PHP_INI" | \
     sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" | \
