@@ -20,6 +20,10 @@ ENV BIN_SENDMAIL "/usr/sbin/sendmail"
 ENV PHP_MAX_EXECUTION_TIME "90"
 ENV PHP_UPLOAD_MAX_FILESIZE "2M"
 
+# Set to a non-empty value if WP is hosted behind a reverse proxy that provides SSL termination
+# https://wordpress.org/support/article/administration-over-ssl/
+ENV SSL_REVERSE_PROXY ""
+
 # Enable WP permalinks (.htaccess)
 ENV APACHE_ALLOW_OVERRIDE "All"
 
