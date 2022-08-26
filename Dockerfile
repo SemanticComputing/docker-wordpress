@@ -1,7 +1,7 @@
 FROM secoresearch/apache-varnish:latest
 
 # DEFINE BUILDTIME ENV
-ENV FILE_PHP_INI "/etc/php/7.0/apache2/php.ini"
+ENV FILE_PHP_INI "/etc/php/current/apache2/php.ini"
 ENV FILE_WP_CONF "$PATH_HTML/wp-config.php"
 ENV PATH_WP_INSTALL "/wordpress"
 ENV SRC_WP_CONF "/wp-config.php.source"
@@ -40,11 +40,11 @@ ENV VARIABLES_WP_CONF \
 
 # INSTALL PACKAGES
 # php-mysql - wordpress
+# wget - download wp installation package
 # unzip - unpack wp installation
-# gettext-base - envsubst for generating config from .source
 # vsftpd - wordpress connects via ftp to install themes etc
 RUN apt-get update
-RUN apt-get install -y php-mysql unzip gettext-base vsftpd
+RUN apt-get install -y php-mysql unzip vsftpd wget
 
 # SETUP WORDPRESS
 WORKDIR /tmp/
@@ -70,4 +70,5 @@ USER 10001
 
 ENV RUN_WORDPRESS "/run-wordpress"
 COPY "run" "/run-wordpress"
+
 ENTRYPOINT [ "/run-wordpress" ]
