@@ -45,7 +45,7 @@ ENV VARIABLES_WP_CONF \
 # unzip - unpack wp installation
 # vsftpd - wordpress connects via ftp to install themes etc
 RUN apt-get update
-RUN apt-get install -y php-mysql unzip vsftpd wget
+RUN apt-get install -y php-gd php-imagick php-intl php-mysql unzip vsftpd wget
 
 # SETUP WORDPRESS
 WORKDIR /tmp/
