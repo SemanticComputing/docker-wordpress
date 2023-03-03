@@ -28,7 +28,8 @@ TEMP_PHP_INI="/tmp/php.ini"
 cat "$FILE_PHP_INI" | \
     sed "s|;sendmail_path.*|sendmail_path = $BIN_SENDMAIL|g" | \
     sed "s|max_execution_time.*|max_execution_time = $PHP_MAX_EXECUTION_TIME|g" | \
-    sed "s|upload_max_filesize.*|upload_max_filesize = $PHP_UPLOAD_MAX_FILESIZE|g" \
+    sed "s|upload_max_filesize.*|upload_max_filesize = $PHP_UPLOAD_MAX_FILESIZE|g" | \
+    sed "s|post_max_size.*|post_max_size = $PHP_POST_MAX_SIZE|g" \
     > "$TEMP_PHP_INI"                                                                       || fail "$ERR_WORDPRESS"
 cat "$TEMP_PHP_INI" > "$FILE_PHP_INI"                                                       || fail "$ERR_WORDPRESS"
 
