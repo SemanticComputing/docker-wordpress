@@ -1,4 +1,5 @@
-FROM secoresearch/apache-varnish:latest
+ARG apache_varnish_version=latest
+FROM secoresearch/apache-varnish:${apache_varnish_version}
 
 # DEFINE BUILDTIME ENV
 ENV FILE_PHP_INI "/etc/php/current/apache2/php.ini"
